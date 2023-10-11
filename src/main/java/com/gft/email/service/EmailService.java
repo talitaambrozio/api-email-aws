@@ -2,6 +2,8 @@ package com.gft.email.service;
 
 import com.gft.email.model.Email;
 import lombok.AllArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 import software.amazon.awssdk.auth.credentials.DefaultCredentialsProvider;
@@ -15,6 +17,7 @@ import javax.mail.MessagingException;
 @Service
 public class EmailService {
 
+    private static Logger logger = LoggerFactory.getLogger(EmailService.class);
     @Bean
     public SesClient sesClient(){
         return SesClient.builder()
@@ -53,11 +56,12 @@ public class EmailService {
                 .build();
 
         try {
-            System.out.println("Attempting to send an email through Amazon SES " + "using the AWS SDK for Java...");
+            logger.info("Attempting to send an email through Amazon SES using the AWS SDK for Java...");
             sesClient().sendEmail(emailRequest);
-            System.out.println(emailRequest.toString());
+            logger.info("Email successfully sent.");
 
         } catch (SesException e) {
+            logger.error("Error sending email");
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }

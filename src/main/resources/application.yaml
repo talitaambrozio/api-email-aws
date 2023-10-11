@@ -6,7 +6,7 @@ spring:
   aws:
     region: us-east-1
     ses:
-      endpoint: email-smtp.us-east-1.amazonaws.com 
+      endpoint: email-smtp.us-east-1.amazonaws.com
 
 
 
