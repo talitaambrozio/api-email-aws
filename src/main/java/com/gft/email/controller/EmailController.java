@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.mail.MessagingException;
+
 @RestController
 @AllArgsConstructor
 @RequestMapping("api/email")
@@ -16,7 +18,7 @@ public class EmailController {
     private EmailService emailService;
 
     @PostMapping
-    public void sendEmail(@RequestBody Email email)  {
-        emailService.sendEmail(email);
+    public void sendEmail(@RequestBody Email email) throws MessagingException {
+        emailService.send(email);
     }
 }
